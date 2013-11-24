@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="../lib/js/angular.js"></script>
+    <link rel="stylesheet" href="../lib/css/bootstrap.css">
+
+    <script type="text/javascript">
+    function ProfileCtrl($scope) {
+      $scope.reset = function() {
+        $scope.user = {};
+      };
+
+      $scope.getUser = function() {
+        $scope.user = {
+          skills: [
+            {
+              type: 'frontend',
+              name: 'AngularJs'
+            },
+            {
+              type: 'backend',
+              name: 'NodeJs'
+            }
+          ]
+        };
+      }
+    }
+    </script>
+
+    <style type="text/css">
+    .frontend{
+      color: green;
+    }
+    .backend{
+      color: purple;
+    }
+    </style>
+  </head>
+  <body>
+    <div ng-app>
+      <div class="well" ng-controller="ProfileCtrl">
+        <button class="btn" ng-click="getUser()">Kullanıcının bildiği dilleri getir</button>
+        <button class="btn" ng-click="reset()">Reset</button>
+        <div ng-if="!user.skills">Bir şey yok...</div>
+        <ul class="well" ng-if="user.skills">
+          <li ng-repeat="skill in user.skills" class="{{skill.type}}">{{skill.name}}</li>
+        </ul>
+      </div>
+    </div>
+
+  </body>
+</html>
+

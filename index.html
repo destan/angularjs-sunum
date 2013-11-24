@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Google'ın AngularJs'i - Destan Sarpkaya @ KodGemisi</title>
+
+    <meta name="description" content="Google'ın AngularJs'i - Destan Sarpkaya @ KodGemisi">
+    <meta name="author" content="Destan Sarpkaya">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      .code {
+        padding: 0px 4px !important;
+        font-size: 80% !important;
+        color: #c7254e;
+        white-space: nowrap;
+        background-color: #f9f2f4;
+        border-radius: 4px;
+      }
+      .share-reveal{
+        color: gray;
+        display: block;
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        margin-left: -230px;
+        font-family: Undinaru, Oxygen, Helvetica;
+        width: 461px;
+        z-index: 20;
+      }
+      .kodgemisi{
+        font-weight: bold;
+        font-family: Undinaru, Oxygen, Helvetica;
+      }
+      .kodgemisi-1{
+        color: #99c033;
+      }
+      .kodgemisi-2{
+        color: #999;
+      }
+      img{
+        border: 0 !important;
+        box-shadow: none !important;
+      }
+      
+      .bullets-as-next ul {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+      .bullets-as-next li {
+        padding-left: 1em;
+        text-indent: -1em;
+      }
+
+      .bullets-as-next li:before {
+        content: "↳";
+        padding-right: 5px;
+      }
+      iframe{
+        width: 90%;
+      }
+      .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6{
+        text-transform: none !important;
+        font-family: serif;
+      }
+      .reveal h1{
+        font-size: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- Sayfa 0 -->
+        <section data-markdown>
+          Google'ın AngularJs'i
+          ---------------------
+
+          ![Angularjs](img/angularjs.png "Angularjs")
+
+          Note:
+          Notlar
+        </section>
+
+        <!-- Sayfa 1 -->
+        <section>
+          <h2>Ben kimim?</h2>
+          <p>Destan Sarpkaya @ <span class="kodgemisi"><span class="kodgemisi-1">Kod</span><span class="kodgemisi-2">Gemisi</span></span></p>
+
+          <br>
+
+          <ul>
+            <li class="fragment">Yeditepe Üniversitesi Bilgisayar Mühendisliği (2011)</li>
+            <li class="fragment">Kurumsal firmalarda enterprise Java geliştirmesi</li>
+            <li class="fragment">Özgür yazılım gönüllüsü</li>
+          </ul>
+
+          <aside class="notes">
+            <div class="time-limit">3:00</div>
+            Önce kendimi tanıtayım.
+            <ul>
+              <li>Ben Destan Sarpkaya, bu yaz İstanbul'dan kaçarak İzmir'de KodGemisi adında bir yazılım firması kurduk.</li>
+              <li><strong>Yeditepe</strong>'den 2011 yılında mezun oldum.</li>
+              <li>İstanbul'dayken iş hayatında hep <strong>enterprise Java</strong> yazdım ama "büyük" kurumsal firmalarda "ön yüz geliştirici" kavramı pek olmadığından javascript ile de tanıştım.</li>
+              <li>İşten arta kalan vakitte başka teknolojiler öğrenme merakıyla projeler geliştirdim. Bunların tamamı <strong>özgür yazılım</strong> projeleridir.</li>
+              <li>Özellikle üniversite döneminde <strong>özgür yazılım</strong> etkinlikleri düzenlenmesinde rol aldım.</li>
+              <li>ÖWTG, YUCOMP ve LKD'nin ortak çabası ile hazırlanmış bir etkinliktir. 2010 yılında ÖWTG'yi ilk kez hazırlayan ekipte etkin rol aldım.</li>
+              <li>O zamanlar bu etkinlikte sunum yapmak çok uzak bir olasılık olarak görünüyordu ama zamanla o gün geldi çattı.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <!-- Sayfa 2 -->
+        <section>
+          <h2>Sunuma Genel Bakış</h2>
+
+          <ul>
+            <li>AngularJs nedir, neden gereklidir?</li>
+            <li>AngularJs'in sundukları</li>
+            <li>MVC kavramının uygulanışı</li>
+            <li>DOM etkileşimi</li>
+            <li>Testler</li>
+            <li>Sık yapılan hatalar</li>
+          </ul>
+
+          <aside class="notes">
+            <div class="time-limit">3:10</div>
+            <ul>
+              <li>Sunum boyunca bu ana başlıklara değinerek AngularJs hakkında genel bir kanı oluşturmaya çalışacağım.</li>
+            </ul>
+          </aside>
+
+        </section>
+
+        <!-- Sayfa 3 -->
+        <section>
+          <!-- Sayfa 3-1 -->
+          <section>
+            <h1>Neden bir Javascript uygulama çatısı?</h1>
+
+            <aside class="notes">
+              <div class="time-limit">3:30</div>
+              <p>Öncelikle neden bir Javascript uygulama çatısına gereksinim var ondan bahsedelim.</p>
+              <p>jQuery neyimize yetmiyor?</p>
+            </aside>
+          </section>
+
+          <!-- Sayfa 3-2 -->
+          <section class="bullets-as-next">
+            <h2>Neden bir Javascript uygulama çatısı?</h2>
+
+            <ul>
+              <li>İstemci-sunucu mimarisinin yaygınlaşması</li>
+              <li class="fragment">Tek sayfa uygulamalar (Single page apps)</li>
+              <li class="fragment"><strong><em>Daha büyük, karmaşık javascript kodları</em></strong></li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">4:00</div>
+              <ul>
+                <li>İstemci tarafındaki (son kullanıcı bilgisayarları ve akıllı telefonlar), donanımsal gelişme ile hesaplama gücü önemli ölçüde arttı.</li>
+                <li>Business logic denilen hesaplamaların bir kısmı artık istemciler üzerinde yapılmaya başlandı.</li>
+                <li>Kullanıcı etkileşimi arttı.</li>
+                <li>Web siteleri artık web sitesinden çok birer uygulama olarak geliştiriliyor.</li>
+                <li>Kullanıcı deneyimini geliştiren tek sayfa uygulamalar yaygınlaştı.</li>
+                <li>Sonuçta artık elimizde daha büyük ve karmaşık kod tabanları var.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa 3-3 -->
+          <section  data-state="cobalt">
+            <p>Teknik kısıt yok ama ...</p>
+            <p class="fragment">Verimlilik ve sürdürülebilirlik önemli</p>
+            <br>
+            <blockquote class="fragment">“İnsanlar için kod yazın, makinalar için değil.”</blockquote>
+
+            <aside class="notes">
+              <div class="time-limit">5:00</div>
+              <ul>
+                <li>On binlerce satırlık devasa ve karmaşık tek sayfa uygulamaları yazmak için teknik bir kısıt yok. jQuery ile hatta ev yapımı kütüphanelerle bile kesinlikle yapılabilir.</li>
+                <li>Ancak bu uygulamaların "çalışması" yeterli değil.</li>
+                <li>Geliştirme sürecinde hem bir çok tekerlek icad edeceksiniz hem de ekibiniz dışındaki birini işe alınca o devasa sistemin kendi standartlarını öğrenmesi uzun sürecek.</li>
+                <li>İnsanlar için kod yazmak gerek makinalar için değil.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa 3-4 -->
+          <section>
+            <span>uygulama çatısı</span>
+            <span>=</span>
+            <span class="fragment">standart</span>
+            <span class="fragment"> + hazır çözümler</span>
+
+            <aside class="notes">
+              <div class="time-limit">6:00</div>
+              Bu nedenle bir uygulama çatısı size en genel anlamıyla standart ve hazır çözümler sağlayacak.
+              <ul>
+                <li>Gerek düşünce tarzında gerek teknik konularda kod tabanınızın bir standartı olacak.</li>
+                <li>Dünyanın çoktan çözdüğü sorunları yeniden çözmeye zaman harcamayacaksınız.</li>
+              </ul>
+            </aside>
+          </section>
+          
+        </section>
+
+        <!-- Sayfa 4 -->
+        <section>
+          <!-- Sayfa 4-1 -->
+          <section>
+            <h1>AngularJs nedir?</h1>
+          </section>
+
+          <!-- Sayfa 4-2 -->
+          <section>
+            <h2>AngularJs nedir?</h2>
+
+            <ul>
+              <li>Bir javascript uygulama çatısı</li>
+              <li class="fragment">MVC tasarım deseni kullanır</li>
+              <li class="fragment">MIT lisanslı</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">6:30</div>
+              AngularJs nedir?
+              <ul>
+                <li>AngularJs bir uygulama çatısıdır.</li>
+                <li>MVC tasarım desenini kullanır, bu konu aslında tartışmalı, birazdan değineceğim.</li>
+                <li>Günün anlam ve önemine uygun olarak MIT lisansı ile sunulmuş.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa 4-3 -->
+          <section>
+            <h2>AngularJs kafası</h2>
+            <ul>
+              <li class="fragment">HTML statik ancak artık dinamik olmalı</li>
+              <li class="fragment">Declarative UI</li>
+              <li class="fragment">Modüler geliştirme ve yeniden kullanılabilirlik</li>
+              <li class="fragment">Kaygıları ayırarak daha temiz modelleme</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">7:30</div>
+              <ul>
+                <li>AngularJs'in diğer alternatiflerinden ayrıldığı nokta şu: Diğerleri sadece bir js uyg. çatısı sunarken AngularJs HTMLin davranışını değiştirmeyi hedefliyor.</li>
+                <li>Declarative UI</li>
+                <li>Modüler geliştirme yazılımın her alanında çok önemli çünkü yeniden kullanılabilirliği artırıyor.</li>
+                <li>Kaygıları ayırmak yani separation of concerns, iyi bir tasarımın başlıca göstergelerinden biri olan "loose coupling"i sağlar.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <h2>Dinamik HTML</h2>
+            <iframe src="/samples/dinamikHtml.html"></iframe>
+
+            <aside class="notes">
+              <div class="time-limit">8:00</div>
+              <ul>
+                <li>jQuery ile yapsaydık?</li>
+                <li>Declarative. Imperative değil.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <h2>Dinamik HTML</h2>
+            <pre><code data-trim contenteditable>
+function ProfileCtrl($scope) {
+  $scope.reset = function() {
+    $scope.user = {};
+  };
+
+  $scope.getUser = function() {
+    $scope.user = {...};
+  }
+}
+            </code></pre>
+
+            <pre><code data-trim contenteditable>
+<div ng-app>
+  <div class="well" ng-controller="ProfileCtrl">
+    <button class="btn" ng-click="getUser()">Kullanıcıyı getir</button>
+    <button class="btn" ng-click="reset()">Reset</button>
+    <div ng-if="!user.skills">Bir şey yok...</div>
+    <ul class="well" ng-if="user.skills">
+      <li ng-repeat="skill in user.skills" class="{{skill.type}}">{{skill.name}}</li>
+    </ul>
+  </div>
+</div>
+            </code></pre>
+
+            <aside class="notes">
+              <div class="time-limit">9:00</div>
+              <ul>
+                <li>Declarative. Imperative değil.</li>
+                <li>Sunucu tarafındaki viewler tadında.</li>
+                <li>DOMa müdehale yerine daha çok model ile muhattabız.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa 4-4 -->
+          <section>
+            <h2>MVC nedir?</h2>
+            <ul>
+              <li class="fragment">Model View Controller</li>
+              <li class="fragment">Kaygıların ayrılması (separation of concerns)</li>
+              <li class="fragment">Günümüzde servis katmanı eklenmiş</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">9:30</div>
+              <ul>
+                <li>MVCnin ne olduğundan ayrıntılı bahsetmeyeceğim çoğunuz biliyoruzdur muhtemelen.</li>
+                <li>Kaç kişi biliyor?</li>
+                <li>Kaygıların ayrılması için yardımcı olur.</li>
+                <li>Günümüzdeki pratiklerde controllerları destekleyen servis katmanları da kullanılmaktadır.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa 4-5 -->
+          <section>
+            <h2>Angular'da MVC</h2>
+            <ul>
+              <li class="fragment">MVVM -> Model View View-Model</li>
+              <li class="fragment">View-Model -> <span class="code">$scope</span></li>
+              <li class="fragment">MVW -> Model View Whatever</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">10:00</div>
+              Referans: https://plus.google.com/+AngularJS/posts/aZNVhj355G2
+              <ul>
+                <li>AngualarJs'in MVC kavramı biraz tartışmalı. Çok kısa bu tartışmadan bahsedeyim.</li>
+                <li>AngularJs'in yaratıcıları başta MVC olduğunu ancak artık daha çok MVVM yapısında olduğunu söylemişlerdi.</li>
+                <li>Bunun üzerine dönen uzun ve anlamsız tartışmalar sonucu yine AngularJs'in yaratıcılarından biri "böyle gereksiz tartışmalar yapmayın MVW diyin geçin" dedi.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section data-state="mint">
+            <h2>MVC</h2>
+            <img src="/img/mvc-process.svg"><!-- Image from http://en.wikipedia.org/wiki/File:MVC-Process.svg -->
+
+            <aside class="notes">
+              <div class="time-limit">10:30</div>
+              <ul>
+                <li>Bu klasik bir MVC gösterimidir.</li>
+                <li>AngularJs'te Model yerinde $scope düşünülebilir.</li>
+                <li>Bu nedenle MVVM deniliyor.</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <!-- Sayfa  -->
+        <section>
+          <section>
+            <h1>AngularJs'in sundukları</h1>
+            <aside class="notes">
+              <div class="time-limit">10:40</div>
+              Artık AngularJs'in özelliklerinden bahsedelim.  
+            </aside>
+          </section>
+
+          <!-- Sayfa  -->
+          <section data-state="alert">
+            <h2>AngularJs neleri çözmez?</h2>
+            <ul>
+              <li>Spagetti kod</li>
+              <li>Performans sorunları</li>
+              <li>SEO</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">11:00</div>
+              Ama önce yanlış bir algı yaratılmadığından emin olmak için şunları vurgulamak isterim. AngularJs bunlara bir çözüm sunmuyor. Bunların çözümü sizde.
+              <ul>
+                <li>Spagetti kod</li>
+                <li>Performans sorunları</li>
+                <li>SEO</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa  -->
+          <section>
+            <h3>İki Yönlü Veri Bağlama</h3>
+
+                <pre><code data-trim>
+<div ng-app>
+  <div class="well">
+    <label>Ad:</label>
+    <input class="form-control" type="text" ng-model="adiniz" placeholder="Adınızı yazın">
+    <h1>Selam {{adiniz}}!</h1>
+  </div>
+</div>
+                </code></pre>
+
+                <div>
+                  <iframe src="/samples/ikiYonluVeriBaglama.html"></iframe>
+                </div>
+
+            <aside class="notes">
+              <div class="time-limit">12:00</div>
+              <ul>
+                <li>Şimdi bunun neresi 2 yönlü diyeceksiniz?</li>
+                <li>Veri inputtan scope'a bağlanıyor sonra scopetan div içine bağlanıyor.</li>
+                <li>Yani veri controllerda da viewda da aynı anda kullanılabilir oluyor.</li>
+              </ul>
+              </aside>
+          </section>
+
+          <!-- Sayfa  -->
+          <section>
+            <h2>Module kavramı</h2>
+
+            <pre><code data-trim>
+  <div ng-app="myApp">
+    ...
+  </div>
+            </code></pre>
+
+            <pre><code data-trim>
+  angular.module('myApp', ['ngResource', 'videoPlayer'])
+            </code></pre>
+            <aside class="notes">
+              <div class="time-limit">12:30</div>
+              <ul>
+                <li>Constant, service, controller, directive eklenebilir.</li>
+                <li>Yeniden kullnılabilir parçalar yaratmaya yarar.</li>
+                <li>Bootstrap, select2 gibi kütüphanelerin AngularJs versiyonları modül olarak yazılmış.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa  -->
+          <section>
+            <h2>Dependency Injection</h2>
+            <pre><code data-trim>
+  angular.module('myApp', ['ngResource', 'videoPlayer'])
+
+  .constant('ENDPOINT', 'https://api.kodgemisi.com/v2/')
+
+  .factory('UserSyncService', ['$scope', 'ENDPOINT', function($scope, ENDPOINT){
+    ...
+  }])
+
+  .controller('ProfileCtrl', ['$scope', 'UserSyncService', function($scope, userSyncService){
+    ...
+  }])
+            </code></pre>
+            <aside class="notes">
+              <div class="time-limit">14:00</div>
+              <ul>
+                <li>Minify sorunları</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section data-state="sunset">
+            <h2>Scope kavramı</h2>
+            <ul>
+              <li>Prototypical inheritance</li>
+            </ul>
+            <br><br>
+            <pre class="fragment"><code data-trim>
+<div ng-app>
+  <div>
+    <input type="text" ng-model="data">
+    <h3>Root scope: {{data}}</h3>
+  </div>
+  
+  <div ng-controller="FirstCtrl">
+    <input type="text" ng-model="data">
+    <h3>1. Controller: {{data}}</h3>
+  </div>
+  
+  <div ng-controller="SecondCtrl">
+    <input type="text" ng-model="data">
+    <h3>2. Controller: {{data}}</h3>
+  </div>
+</div>
+            </code></pre>
+
+            <aside class="notes">
+              <div class="time-limit">14:30</div>
+              <ul>
+                <li>Böyle bir yapımız olduğunu düşünelim.</li>
+                <li>Her controller yeni bir child scope oluşturur.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <!-- Sayfa  -->
+          <section data-state="sunset">
+            <h2>Scope kavramı</h2>
+            <ul>
+              <li>Prototypical inheritance</li>
+            </ul>
+            <br><br>
+            <iframe style="height:350px" src="/samples/prototypical.html"></iframe>
+
+            <aside class="notes">
+              <div class="time-limit">16:00</div>
+              <ul>
+                <li>Sırayla değer girin</li>
+                <li>Burada prototypical inheritance nasıl çalışır diye anlatmayacağım.</li>
+                <li>Yalnıca böyle bir şey var haberiniz olsun :)</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>AngularJs'in MVC kullanımı</h1>
+
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section>
+            <h2>Model</h2>
+
+            <ul>
+              <li>Model <span class="code">input</span>tan veya AJAXtan gelir</li>
+              <li><span class="code">$scope</span>a konulur</li>
+              <li>Model üzerindeki değişiklikler izlenir</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">16:30</div>
+            </aside>
+          </section>
+
+          <section>
+            <h2>View</h2>
+            <ul>
+              <li>HTML + Template</li>
+              <li><span class="code">{{ }}</span> <span class="code">ng-bind</span> <span class="code">ng-model</span></li>
+              <li>String interpolation</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">17:00</div>
+              <ul>
+                <li>String interpolation bir çok dilde olan bir özellik.</li>
+                <li>Bir string içindeki değişkenin, değişkenin değeriyle değiştirilmesidir.</li>
+                <li>Önceki örnekte görmüştük: Selam {{adiniz}} demiştik.</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <h2>Controller</h2>
+            <ul>
+              <li><span class="code">ViewModel</span>i manipule eder</li>
+              <li>DOM'a kesinlikle dokunmaz</li>
+              <li>Her controllerın yeni "scope"u vardır</li>
+              <li>Controller inheritance YOK!</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">19:00</div>
+              <ul>
+                <li>ViewModel dediğimiz ne burda? $scope</li>
+                <li>Her controllerın yeni "scope"u vardır</li>
+                <li>Chennemde yanarsınız</li>
+              </ul>
+            </aside>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h1>DOM etkileşimi ve directive kavramı</h1>
+          </section>
+          
+          <section>
+            <h2>Directive</h2>
+            <ul>
+              <li>DOM ile etkileşimin tek yolu</li>
+              <li><span class="code">ng-repeat</span> <span class="code">ng-if</span> <span class="code">ng-class</span> <span class="code">ng-Bind</span></li>
+              <li>Özelleştirilebilir, kendi directive'lerinizi yazın</li>
+            </ul>
+
+            <aside class="notes">
+              <div class="time-limit">21:00</div>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <h4>Directive örneği</h4>
+            <pre><code data-trim>
+  angular.module('SampleForDirective', [])
+  .directive('toggle', function() {
+    return function(scope, element, attrs) {
+      element.addClass('btn-success').text('Açık');
+      var on = true;
+
+      element.on('click', function() {
+        if(on)
+          element.removeClass('btn-success').addClass('btn-danger').text('Kapalı');
+        else
+          element.removeClass('btn-danger').addClass('btn-success').text('Açık');
+
+        on = !on;
+      });
+    };
+  });
+            </code></pre>
+
+            <pre><code data-trim>
+<button class="btn" toggle></button>
+            </code></pre>
+
+            <iframe src="/samples/directive.html"></iframe>
+
+            <aside class="notes">
+              <div class="time-limit">25:00</div>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <h2>Directiveler her yerde</h2>
+            <ul>
+              <li><span class="code">Tag</span> <span class="code">Attribute</span> <span class="code">Class</span></li>
+            </ul>
+
+            <pre><code data-trim>
+<button class="btn" toggle></button>
+
+<button class="btn toggle"></button>
+
+<toggle></toggle>
+            </code></pre>
+
+            <aside class="notes">
+              <div class="time-limit">25:30</div>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </aside>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>AngularJs ve testler</h2>
+
+            <img width="400" class="fragment" src="/img/inscnmya.jpg">
+            <aside class="notes">
+              <div class="time-limit">27:00</div>
+              <ul>
+                <li>Hepimiz test driven development yapıyoruz değil mi?</li>
+                <li>Test yazmayan kendini bilmez var mı aramız da?</li>
+                <li>Hepimiz test yazıyoruz tabiki...</li>
+                <li>İnş cnm yhaa</li>
+                <li>Testler, ülkemizin kanayan yarası.</li>
+                <li>Refactoring yapacağınız zaman çoook önemli.</li>
+              </ul>
+            </aside>
+          </section>
+          
+          <section>
+            <h2>Jasmine</h2>
+            <pre><code data-trim>
+describe('Test showcase', function() {
+ 
+  describe('ProfileCtrl', function(){
+ 
+    it('should instantiate "users" model with 2 users', function() {
+      var scope = {};
+      var ctrl = new ProfileCtrl(scope);
+ 
+      expect(scope.users.length).toBe(2);
+    });
+  });
+});
+            </code></pre>
+
+            <pre><code data-trim>
+$ karma start karma-config.js 
+INFO [karma]: Karma v0.10.5 server started at http://localhost:9876/
+INFO [launcher]: Starting browser Chrome
+INFO [Chromium 30.0.1599 (Ubuntu)]: Connected on socket GzV3EwULE_yqFCU5elUh
+Chromium 30.0.1599 (Ubuntu): Executed 1 of 1 SUCCESS (0.14 secs / 0.023 secs)
+            </code></pre>
+
+            <pre><code data-trim>
+Chromium 30.0.1599 (Ubuntu) Test showcase ProfileCtrl should instantiate "users" model with 2 users FAILED
+  Expected 0 to be 2.
+  Error: Expected 0 to be 2.
+      at null.<anonymous> (/home/destan/dev/.../samples/tests.js:9:34)
+            </code></pre>
+
+            <aside class="notes">
+              <div class="time-limit">27:30</div>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Sık yapılan hatalar</h1>
+          </section>
+
+          <section>
+            <h2>DOMa directive dışında müdahale</h2>
+
+            <ul>
+              <li>Directive kullanın</li>
+              <li>Controller doğru yer değil</li>
+              <li>Testlerde zorluk</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Angular'a dışarıdan müdehale</h2>
+
+            <pre><code data-trim>
+$.get('http://api.kodgemisi.com/v2/user/35', function(data) {
+  $scope.user = data;
+});
+          </code></pre>
+
+            <pre class="fragment"><code data-trim>
+$.get('http://api.kodgemisi.com/v2/user/35', function(data) {
+  $scope.$apply(function(){
+    $scope.user = data;
+  });
+});
+            </code></pre>
+
+            <pre class="fragment"><code data-trim>
+$http('http://api.kodgemisi.com/v2/user/35')
+.success(function(data, status) {
+  $scope.user = data;
+})
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Build-in fonksiyonları kullanın</h2>
+
+            <div>
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 50%;">
+                    <li>angular.copy</li>
+                    <li>angular.element</li>
+                    <li>angular.equals</li>
+                    <li>angular.extend</li>
+                    <li>angular.forEach</li>
+                    <li>angular.fromJson</li>
+                    <li>angular.identity</li>
+                    <li>angular.isArray</li>
+                    <li>angular.isDate</li>
+                    <li>angular.isDefined</li>
+                  </td>
+
+                  <td style="width: 50%;">
+                    <li>angular.isElement</li>
+                    <li>angular.isFunction</li>
+                    <li>angular.isNumber</li>
+                    <li>angular.isObject</li>
+                    <li>angular.isString</li>
+                    <li>angular.isUndefined</li>
+                    <li>angular.lowercase</li>
+                    <li>angular.noop</li>
+                    <li>angular.toJson</li>
+                    <li>angular.uppercase</li>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </section>
+
+          <section>
+            <h2>{{Bunlar çıkmasın}}</h2>
+
+            <pre><code data-trim>
+              <div>{{user.name}}</div>
+            </code></pre>
+
+            <pre><code data-trim>
+              <div ng-bind="user.name"></div>
+            </code></pre>
+          </section>
+        </section>
+
+        <section data-state="alert">
+          <h2>Düşünce tarzınızı değiştirin</h2>
+          
+          <ul>
+            <li class="fragment">DOMu değiştirme, modeli değiştir</li>
+            <li class="fragment">Web sitesi değil, bir uygulama</li>
+            <li class="fragment">Önce mimari tasarlanır</li>
+            <li class="fragment">Klasör yapısı ve modül yapısı tasarlanır</li>
+          </ul>
+
+          <aside class="notes">
+            <ul>
+              <li>DOMu değiştirme, modeli değiştir</li>
+              <li>Web sitesi değil, bir uygulama</li>
+              <li>Önce mimari tasarlanır</li>
+              <li>Klasör yapısı ve modül yapısı tasarlanır</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h1>Teşekkürler</h1>
+          <h2>Sorular?</h2>
+          
+          <iframe src="/samples/socials.html"></iframe>
+        </section>
+
+
+      </div><!-- slides -->
+    </div><!-- reveal -->
+
+
+<!--     <div class="share-reveal">
+      <div style="text-align: center">Destan Sarpkaya <span class="kodgemisi"><span class="kodgemisi-1">Kod</span><span class="kodgemisi-2">Gemisi</span></span></div>
+    </div> -->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>

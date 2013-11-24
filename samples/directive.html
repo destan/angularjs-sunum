@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="../lib/js/angular.js"></script>
+    <link rel="stylesheet" href="../lib/css/bootstrap.css">
+    <script type="text/javascript">
+      angular.module('SampleForDirective', [])
+.directive('toggle', function() {
+  return function(scope, element, attrs) {
+    element.addClass('btn-success').text('Açık');
+    var on = true;
+
+    element.on('click', function() {
+      if(on)
+        element.removeClass('btn-success').addClass('btn-danger').text('Kapalı');
+      else
+        element.removeClass('btn-danger').addClass('btn-success').text('Açık');
+
+      on = !on;
+    });
+  };
+});
+    </script>
+
+    <style type="text/css">
+    .well{
+      padding: 5px;
+    }
+    </style>
+  </head>
+
+  <body ng-app="SampleForDirective">
+    <div class="well">
+      <button class="btn" toggle></button>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="../lib/js/angular.js"></script>
+    <link rel="stylesheet" href="../lib/css/bootstrap.css">
+    <script type="text/javascript">
+      function FirstCtrl($scope, $rootScope) {}
+
+      function SecondCtrl($scope) {}
+    </script>
+    <style type="text/css">
+    .well{
+      padding: 0
+    }
+    </style>
+  </head>
+
+  <body>
+  <br>
+  <div class="row">
+    <div ng-app="" class="col-xs-10 col-xs-offset-1">
+      <div class="well">
+        <input class="form-control" type="text" ng-model="data">
+        <h3>Root scope: {{data}}</h3>
+      </div>
+      
+      <div ng-controller="FirstCtrl" class="well">
+        <input class="form-control" type="text" ng-model="data">
+        <h3>1. Controller: {{data}}</h3>
+      </div>
+      
+      <div ng-controller="SecondCtrl" class="well">
+        <input class="form-control" type="text" ng-model="data">
+        <h3>2. Controller: {{data}}</h3>
+      </div>
+    </div>
+  </div>
+
+  </body>
+</html>
+
