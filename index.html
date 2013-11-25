@@ -44,10 +44,11 @@
         position: absolute;
         bottom: 14px;
         left: 50%;
-        margin-left: -230px;
+        margin-left: -247px;
         font-family: Undinaru, Oxygen, Helvetica;
-        width: 461px;
+        width: 495px;
         z-index: 20;
+        text-align: center;
       }
       .kodgemisi{
         font-weight: bold;
@@ -89,7 +90,25 @@
       .reveal h1{
         font-size: 100px;
       }
+      #twitter-widget-0{
+        width: 85px !important;
+      }
     </style>
+
+      <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29182671-1']);
+        _gaq.push(['_setDomainName', 'dorukdestan.com']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+      </script>
   </head>
 
   <body>
@@ -282,7 +301,7 @@
 
           <section>
             <h2>Dinamik HTML</h2>
-            <iframe src="/samples/dinamikHtml.html"></iframe>
+            <iframe src="samples/dinamikHtml.html"></iframe>
 
             <aside class="notes">
               <div class="time-limit">8:00</div>
@@ -372,7 +391,7 @@ function ProfileCtrl($scope) {
 
           <section data-state="mint">
             <h2>MVC</h2>
-            <img src="/img/mvc-process.svg"><!-- Image from http://en.wikipedia.org/wiki/File:MVC-Process.svg -->
+            <img src="img/mvc-process.svg"><!-- Image from http://en.wikipedia.org/wiki/File:MVC-Process.svg -->
 
             <aside class="notes">
               <div class="time-limit">10:30</div>
@@ -430,7 +449,7 @@ function ProfileCtrl($scope) {
                 </code></pre>
 
                 <div>
-                  <iframe src="/samples/ikiYonluVeriBaglama.html"></iframe>
+                  <iframe src="samples/ikiYonluVeriBaglama.html"></iframe>
                 </div>
 
             <aside class="notes">
@@ -531,7 +550,7 @@ function ProfileCtrl($scope) {
               <li>Prototypical inheritance</li>
             </ul>
             <br><br>
-            <iframe style="height:350px" src="/samples/prototypical.html"></iframe>
+            <iframe style="height:350px" src="samples/prototypical.html"></iframe>
 
             <aside class="notes">
               <div class="time-limit">16:00</div>
@@ -653,7 +672,7 @@ function ProfileCtrl($scope) {
 <button class="btn" toggle></button>
             </code></pre>
 
-            <iframe src="/samples/directive.html"></iframe>
+            <iframe src="samples/directive.html"></iframe>
 
             <aside class="notes">
               <div class="time-limit">25:00</div>
@@ -695,7 +714,7 @@ function ProfileCtrl($scope) {
           <section>
             <h2>AngularJs ve testler</h2>
 
-            <img width="400" class="fragment" src="/img/inscnmya.jpg">
+            <img width="400" class="fragment" src="img/inscnmya.jpg">
             <aside class="notes">
               <div class="time-limit">27:00</div>
               <ul>
@@ -738,7 +757,7 @@ Chromium 30.0.1599 (Ubuntu): Executed 1 of 1 SUCCESS (0.14 secs / 0.023 secs)
 Chromium 30.0.1599 (Ubuntu) Test showcase ProfileCtrl should instantiate "users" model with 2 users FAILED
   Expected 0 to be 2.
   Error: Expected 0 to be 2.
-      at null.<anonymous> (/home/destan/dev/.../samples/tests.js:9:34)
+      at null.<anonymous> (/home/destan/dev/...samples/tests.js:9:34)
             </code></pre>
 
             <aside class="notes">
@@ -861,20 +880,41 @@ $http('http://api.kodgemisi.com/v2/user/35')
           <h1>Teşekkürler</h1>
           <h2>Sorular?</h2>
           
-          <iframe src="/samples/socials.html"></iframe>
+          <iframe src="samples/socials.html"></iframe>
         </section>
 
 
       </div><!-- slides -->
     </div><!-- reveal -->
 
+    <div class="share-reveal">
+      <div style="margin-bottom:5px">
+        <a href="http://kodgemisi.com" target="_blank">
+          <span class="kodgemisi"><span class="kodgemisi-1">Kod</span><span class="kodgemisi-2">Gemisi</span></span>
+        </a>
+      </div>
 
-<!--     <div class="share-reveal">
-      <div style="text-align: center">Destan Sarpkaya <span class="kodgemisi"><span class="kodgemisi-1">Kod</span><span class="kodgemisi-2">Gemisi</span></span></div>
-    </div> -->
+      <a href="https://twitter.com/dorukdestan" class="twitter-follow-button" data-show-count="false" data-lang="tr" data-dnt="true">Takip et: @dorukdestan</a>
+
+      <a href="https://twitter.com/kodgemisi" class="twitter-follow-button" data-show-count="false" data-lang="tr" data-dnt="true">Takip et: @kodgemisi</a>
+
+      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Google'ın AngularJs'i" data-via="dorukdestan" data-lang="tr" data-related="kodgemisi" data-dnt="true">Tweet</a>
+
+      <div class="fb-like" data-href="http://dorukdestan.com/angularjs-sunum" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+    </div>
+    <div id="fb-root"></div>
 
     <script src="lib/js/head.min.js"></script>
     <script src="js/reveal.min.js"></script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=160272394100571";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
     <script>
 
